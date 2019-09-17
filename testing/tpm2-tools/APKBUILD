@@ -10,7 +10,7 @@ license="BSD-2-Clause"
 makedepends="tpm2-tss-dev automake autoconf autoconf-archive libtool openssl-dev doxygen linux-headers curl-dev"
 subpackages="tpm2-tools-doc"
 sourcever="${pkgver/_/-}"
-source="https://github.com/tpm2-software/${pkgname}/releases/download/${sourcever}/${pkgname}-${sourcever}.tar.gz"
+source="https://github.com/tpm2-software/${pkgname}/releases/download/${sourcever}/${pkgname}-${sourcever}.tar.gz 01-public-public.patch"
 builddir="$srcdir/$pkgname-$sourcever"
 
 prepare() {
@@ -31,4 +31,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="dfdf38f488238f06315493c0a708a9efb104e92e0b149180b13a542fb9fa4ff79199121876a7c0ad64b58f0738d3f11206431fffd1b259a1a50a34f6f34a8250  tpm2-tools-4.0-rc2.tar.gz"
+sha512sums="dfdf38f488238f06315493c0a708a9efb104e92e0b149180b13a542fb9fa4ff79199121876a7c0ad64b58f0738d3f11206431fffd1b259a1a50a34f6f34a8250  tpm2-tools-4.0-rc2.tar.gz
+4dd009de90fe778c6819c7b113674ef85ea937611284b101b82e7a4ba625cdad1e3650c71a3634b6e3b7b3845550beb32baa2db1a24e30bc18b15b0e24186730  01-public-public.patch"
