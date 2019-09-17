@@ -3,7 +3,7 @@
 pkgname=strongswan
 pkgver=5.8.0
 _pkgver=${pkgver//_rc/rc}
-pkgrel=1
+pkgrel=2
 pkgdesc="IPsec-based VPN solution focused on security and ease of use, supporting IKEv1/IKEv2 and MOBIKE"
 url="https://www.strongswan.org/"
 arch="all"
@@ -13,7 +13,7 @@ license="GPL-2.0 RSA-MD5 RSA-PKCS11 DES"
 depends="iproute2"
 depends_dev=""
 makedepends="$depends_dev linux-headers python2 sqlite-dev openssl-dev curl-dev
-	gmp-dev libcap-dev"
+	gmp-dev libcap-dev libtpm2-tss-dev"
 install="$pkgname.pre-install"
 subpackages="$pkgname-doc $pkgname-dbg"
 source="https://download.strongswan.org/$pkgname-$_pkgver.tar.bz2
@@ -113,6 +113,7 @@ build() {
 		--enable-swanctl \
 		--enable-shared \
 		--disable-static \
+		--enable-tss-tss2 --enable-tpm \
 		$_aesni
 	make
 }
