@@ -1,0 +1,36 @@
+# Contributor:
+# Maintainer: Alexander Sack <asac@pantacor.com>
+pkgname="openssl-tpm2-engine"
+pkgver="2.3.0"
+pkgrel=0
+pkgdesc="TPM2 Openssl Engine using ibmtpm20-tss"
+url="https://gitlab.com/asacasa/openssl_tpm2_engine/"
+arch="all"
+license="BSD-3-Clause"
+makedepends="ibmtpm20-tss-dev automake autoconf autoconf-archive libtool openssl-dev doxygen linux-headers curl-dev help2man"
+source="https://gitlab.com/asacasa/openssl-tpm2-engine/-/archive/v2.3.0/openssl-tpm2-engine-v2.3.0.tar.gz"
+builddir="$srcdir/$pkgname-v$pkgver"
+subpackages="$pkgname-doc"
+
+prepare() {
+	cd $builddir
+	sh ./bootstrap.sh
+}
+
+build() {
+	cd $builddir
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr
+	make CFLAGS="-Wno-error=maybe-uninitialized"
+}
+
+package() {
+	echo $builddir
+	ls $builddir
+	cd $builddir
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="a12795263a1472ebdf2832a3a409a3223123044c10a9356d7a97c720e93b1410a3905487807f1e9347c9ad6f5ca52da4079f2e1806b9a8aace1f8863415085a9  openssl-tpm2-engine-v2.3.0.tar.gz"
