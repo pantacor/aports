@@ -1,0 +1,33 @@
+# Contributor: Alexander Sack <asac@pantacor.com>
+# Maintainer: Alexander Sack <asac@pantacor.com>
+pkgname="ibmtpm20-tss"
+pkgver="1470"
+pkgcommit=c42cca42b61d19838c94fb148af486ed983bff6a
+pkgrel=0
+pkgdesc="TPM2 tss library and commands by IBM"
+url="https://gitlab.com/asacasa/ibmtpm20tss-tss/"
+arch="all"
+license="BSD-2-Clause"
+makedepends="openssl-dev autoconf automake libtool doxygen linux-headers"
+subpackages="$pkgname-dev $pkgname-doc"
+source="https://gitlab.com/asacasa/ibmtpm20tss-tss/-/archive/v1470/ibmtpm20tss-tss-v1470.tar.gz"
+builddir="$srcdir/$pkgname-v$pkgver-$pkgcommit"
+
+prepare() {
+	cd $builddir
+	autoreconf -i
+}
+
+build() {
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr
+	make	
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="b43383c3e802a0a692e4f5dc2bccabb2002bca4b5460637da5d5594f988941f455d1894cece607fdebff9a3f2860ba96e12b48704f97aa34dea8914df151d08c  ibmtpm20tss-tss-v1470.tar.gz"
