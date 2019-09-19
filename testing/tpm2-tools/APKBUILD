@@ -2,7 +2,7 @@
 # Maintainer: Alexander Sack <asac@pantacor.com>
 pkgname="tpm2-tools"
 pkgver="4.0_rc2"
-pkgrel=0
+pkgrel=1
 pkgdesc="TPM2 Tools"
 url="https://github.com/tpm2-software/tpm2-tools/"
 arch="all"
@@ -12,11 +12,6 @@ subpackages="tpm2-tools-doc"
 sourcever="${pkgver/_/-}"
 source="https://github.com/tpm2-software/${pkgname}/releases/download/${sourcever}/${pkgname}-${sourcever}.tar.gz 01-public-public.patch"
 builddir="$srcdir/$pkgname-$sourcever"
-
-prepare() {
-	cd $builddir
-	./bootstrap
-}
 
 build() {
 	cd $builddir
