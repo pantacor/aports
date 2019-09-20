@@ -1,0 +1,42 @@
+# Contributor:
+# Maintainer: Alexander Sack <asac@pantacor.com>
+pkgname="ibm-tpm2-simulator"
+pkgver="1332"
+pkgrel=0
+pkgdesc="IBM TPM2 Simulator"
+url="https://www.sourceforge.net/project/ibmswtpm2/"
+arch="all"
+license="BSD-3-Clause"
+depends=""
+makedepends="tpm2-tss-dev openssl-dev"
+install=""
+source="https://downloads.sourceforge.net/project/ibmswtpm2/ibmtpm1332.tar.gz"
+srcdir="$srcdir/"
+builddir="$srcdir/"
+
+unpack() {
+	_srcdir=$srcdir
+	srcdir=$srcdir/ibmtpm1332
+	mkdir -p $srcdir
+	default_unpack
+	srcdir=$_srcdir
+}
+
+
+build() {
+	cd ibmtpm1332/src
+	make CCFLAGS_LOCAL="-Wunused-variable"
+}
+
+check() {
+	# Replace with proper check command(s)
+	:
+}
+
+package() {
+	cd $srcdir/ibmtpm1332/src
+	mkdir -p $pkgdir/usr/bin
+	cp tpm_server "$pkgdir"/usr/bin/
+}
+
+sha512sums="63ef597e9d958a0039b88f3f864f063546223641f8550869d21e401cd55464ccb6b3e8421354653acb9266a39b4417d930e3fe6f1825991931c2eadd4bf7b2a6  ibmtpm1332.tar.gz"

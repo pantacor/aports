@@ -1,0 +1,10 @@
+--- ./ibmtpm974/src/CryptRand.c.orig
++++ ./ibmtpm974/src/CryptRand.c
+@@ -503,7 +503,6 @@
+ #if defined USE_DEBUG_RNG && 1
+     // If doing debug, use the input data as the initial setting for the RNG state
+     // so that the test can be reset at any time.
+-    NOT_REFERENCED(dfResult);
+     if(additionalDataSize < 0)
+ 	additionalDataSize = 0;
+     else if(additionalDataSize > sizeof(tmpBuf))
