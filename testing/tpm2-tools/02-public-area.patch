@@ -1,0 +1,44 @@
+--- tpm2-tools-4.0-rc2.orig/lib/files.c
++++ tpm2-tools-4.0-rc2/lib/files.c
+@@ -719,6 +719,9 @@
+ SAVE_TYPE(TPM2B_PUBLIC, public)
+ LOAD_TYPE(TPM2B_PUBLIC, public)
+ 
++SAVE_TYPE(TPMT_PUBLIC, public_area)
++LOAD_TYPE(TPMT_PUBLIC, public_area)
++
+ SAVE_TYPE(TPMT_SIGNATURE, signature)
+ LOAD_TYPE(TPMT_SIGNATURE, signature)
+ 
+--- tpm2-tools-4.0-rc2.orig/lib/files.h
++++ tpm2-tools-4.0-rc2/lib/files.h
+@@ -141,6 +141,18 @@
+  */
+ bool files_save_public(TPM2B_PUBLIC *public, const char *path);
+ 
++
++/**
++ * Serializes a TPMT_PUBLIC to the file path provided.
++ * @param public
++ *  The TPMT_PUBLIC to save to disk.
++ * @param path
++ *  The path to save to.
++ * @return
++ *  true on success, false on error.
++ */
++bool files_save_public_area(TPMT_PUBLIC *public, const char *path);
++
+ /**
+  * Loads a TPM2B_PUBLIC from disk that was saved with files_save_pubkey()
+  * @param path
+--- tpm2-tools-4.0-rc2.orig/tools/tpm2_readpublic.c
++++ tpm2-tools-4.0-rc2/tools/tpm2_readpublic.c
+@@ -60,7 +60,7 @@
+     }
+ 
+     if (ctx.public_path)
+-        ret = files_save_public(public, ctx.public_path);
++        ret = files_save_public_area(&public->publicArea, ctx.public_path);
+     if (!ret) {
+         LOG_ERR("Can not save public file.");
+         goto out;
