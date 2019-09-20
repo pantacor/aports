@@ -1,0 +1,20 @@
+--- src/ibmtpm974/src/makefile.orig
++++ src/ibmtpm974/src/makefile
+@@ -48,13 +48,15 @@
+ 	-DTPM_POSIX			\
+ 	-D_POSIX_			\
+ 	-I../utils			\
+-	-I.
++	-I. \
++	$(CCFLAGS_LOCAL)
+ 
+ LNFLAGS = -ggdb 			\
+ 	-DTPM_POSIX			\
+ 	-lcrypto			\
+ 	-lpthread			\
+-	-I.
++	-I.				\
++	$(LNFLAGS_LOCAL)
+ 
+ all:	tpm_server
+ 
